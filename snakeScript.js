@@ -1,32 +1,41 @@
-
 canv=document.getElementById("canvas");
 ctx=canv.getContext("2d");
 document.addEventListener("keydown",keyPush);
+
+//Position of snake starting position
 px=py=10;
+
+//Grid size/tile count
 gs=tc=20;
+
+//Apple starting position
 ax=ay=15;
+
+//Snake starting velocity
 xv=yv=0;
+
+//Starting tail and fps values
 trail=[];
 tail = 5;
-fps = 30;
+fps = 10;
 
 
-function keyPush(evt) {
-    switch(evt.keyCode) {
-        case 37:
-            xv=-1;yv=0;
-            break;
-        case 38:
-            xv=0;yv=-1;
-            break;
-        case 39:
-            xv=1;yv=0;
-            break;
-        case 40:
-            xv=0;yv=1;
-            break;
+function keyPush(e) {
+    console.log(e)
+    if (e.key === 'ArrowRight' || e.key === 'Right') {
+        xv = 1;
+        yv = 0;
+    } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+        xv = -1;
+        yv = 0;
+    } else if (e.key === 'ArrowUp' || e.key === 'Up') {
+        xv = 0;
+        yv = -1;
+    } else if (e.key === 'ArrowDown' || e.key === 'Down') {
+        xv = 0;
+        yv = 1;
     }
-}
+  }
 
 function game() {
     setTimeout(function(){
