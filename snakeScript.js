@@ -20,13 +20,13 @@ tail = 5;
 fps = 10;
 
 //Determines how many trail elements are added each time an apple is eaten
-tailIncrease = 3;
+tailIncrease = 2;
 
 //Determines by how much the fps is increased each time an apple is eaten
 fpsIncrease = 1;
 
 //A boolean to determine if the game is playing or the game over screen should be displayed
-playing = true;
+playing = false;
 
 //Input functionality
 function keyPush(e) {
@@ -53,13 +53,27 @@ function gameOver() {
         ctx.fillStyle="black";
         ctx.fillRect(0,0,canv.width,canv.height);
 
-        // fillText()
+        // Print Game Over message on screen
         ctx.font = '50px Arial';
         ctx.fillStyle = 'white';
-        ctx.fillText('Game Over', 70, 220, 300);
-    },500)
+        ctx.fillText('Game Over', 70, 220);
 
+        // Print Game Over sub-message on screen
+        ctx.font = '15px Arial';
+        ctx.fillStyle = 'white';
+        ctx.fillText('Click any where to play again', 100, 250);
+    },100)
+    canv.addEventListener('click', function() {
+        
+        playing=true;
+        px=py=10;
+        ax=ay=15;
+        trail=[];
+        xv=yv=0;
+        tail = 5;
+        fps = 10;
 
+    }, false);
 }
 
 function game() {
@@ -88,7 +102,6 @@ function game() {
             ctx.fillStyle="black";
             ctx.fillRect(0,0,canv.width,canv.height);
         
-            
             //     1. animates each element in the trail
             //     2. resets the tail length to 5 and fps to 10 if the trail element is equal to the snake's position
             //     3. addes the current position to the trail
