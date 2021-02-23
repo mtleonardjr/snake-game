@@ -26,23 +26,31 @@ tailIncrease = 2;
 fpsIncrease = 1;
 
 //A boolean to determine if the game is playing or the game over screen should be displayed
-playing = false;
+playing = true;
 
 //Input functionality
 function keyPush(e) {
     console.log(e)
     if (e.key === 'ArrowRight' || e.key === 'Right') {
-        xv = 1;
-        yv = 0;
+        if (!(xv === -1 && yv === 0) ){
+            xv = 1;
+            yv = 0;
+        } 
     } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
-        xv = -1;
-        yv = 0;
+        if (!(xv === 1 && yv ===0)) {
+            xv = -1;
+            yv = 0;
+        }
     } else if (e.key === 'ArrowUp' || e.key === 'Up') {
-        xv = 0;
-        yv = -1;
+        if (!(xv === 0 && yv ===1)) {
+            xv = 0;
+            yv = -1;
+        }
     } else if (e.key === 'ArrowDown' || e.key === 'Down') {
-        xv = 0;
-        yv = 1;
+        if (!(xv === 0 && yv ===-1)) {
+            xv = 0;
+            yv = 1;
+        }
     }
 }
 
