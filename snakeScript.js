@@ -19,7 +19,13 @@ trail=[];
 tail = 5;
 fps = 10;
 
+//Determines how many trail elements are added each time an apple is eaten
+tailIncrease = 3;
 
+//Determines by how much the fps is increased each time an apple is eaten
+fpsIncrease = 1;
+
+//Input functionality
 function keyPush(e) {
     console.log(e)
     if (e.key === 'ArrowRight' || e.key === 'Right') {
@@ -35,12 +41,16 @@ function keyPush(e) {
         xv = 0;
         yv = 1;
     }
-  }
+}
 
 function game() {
     setTimeout(function(){
+
+        //update the snake position based on velocity
         px+=xv;
         py+=yv;
+
+        //update the snake position if the snake has gone off the screen
         if(px<0) {
             px= tc-1;
         }
@@ -53,14 +63,22 @@ function game() {
         if(py>tc-1) {
             py= 0;
         }
+
+        //animate the background
         ctx.fillStyle="black";
         ctx.fillRect(0,0,canv.width,canv.height);
     
+        
+        //     1. animates each element in the trail
+        //     2. resets the tail length to 5 and fps to 10 if the trail element is equal to the snake's position
+        //     3. addes the current position to the trail
+        //     4. deletes the first element(s) in the trail so the trail matches the tail        
         ctx.fillStyle="lime";
         for(var i=0;i<trail.length;i++) {
             ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
             if(trail[i].x==px && trail[i].y==py) {
                 tail = 5;
+                fps = 10;
             }
         }
         trail.push({x:px,y:py});
@@ -68,8 +86,13 @@ function game() {
         trail.shift();
         }
     
+        //If the snake and the apple arew in the same position
+        //      1. the tail is increaed
+        //      2. a new apple position is randomly created
+        //      3. fps is increased
         if(ax==px && ay==py) {
-            tail++;
+            fps = fps + fpsIncrease;
+            tail = tail + tailIncrease;
             ax=Math.floor(Math.random()*tc);
             ay=Math.floor(Math.random()*tc);
         }
